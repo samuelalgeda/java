@@ -1,0 +1,68 @@
+import java.util.*;
+
+public class PrepareTax {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        String ssn, last, first, address, city, state, zipCode, statusString;
+        double income;
+        char status = ' ';
+
+        // prompt user for Social Security number
+        do {
+            System.out.println("Enter your Social Security number");
+            ssn = input.nextLine();
+        } while (!ssn.matches("\\d{3}-\\d{2}-\\d{4}"));
+
+        // prompt user for first name
+        System.out.println("Enter your first name");
+        first = input.nextLine();
+
+        // prompt user for last name
+        System.out.println("Enter your last name");
+        last = input.nextLine();
+
+        // prompt user for address
+        System.out.println("Enter your address");
+        address = input.nextLine();
+
+        // prompt user for city
+        System.out.println("Enter your city");
+        city = input.nextLine();
+
+        // prompt user for state
+        System.out.println("Enter your state");
+        state = input.nextLine();
+
+        // prompt user for zip code
+        do {
+            System.out.println("Enter your Zip code");
+            zipCode = input.nextLine();
+        } while (zipCode.length() != 5);
+
+        // prompt user for marital status
+        do {
+            System.out.println("Enter marital status");
+            statusString = input.nextLine();
+            if (statusString.length() > 0) {
+                status = statusString.toUpperCase().charAt(0);
+            }
+        } while (status != 'S' && status != 'M');
+
+        // prompt user for annual income
+        do {
+            System.out.println("Enter your annual income");
+            income = input.nextDouble();
+            if (income < 0) {
+                System.out.println("Income cannot be negative.");
+            }
+        } while (income < 0);
+
+        // create new TaxReturn object
+        TaxReturn taxReturn = new TaxReturn(ssn, last, first, address, city, state, zipCode, income, status);
+
+        // display TaxReturn data
+        taxReturn.display();
+    }
+}
+
